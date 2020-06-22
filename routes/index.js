@@ -13,10 +13,15 @@ router.get('/', ensureGuest, (req, res) => {
 
 // @desc    Dashboard
 // @route   GET /dashboard
-router.get('/dashboard', ensureAuth, (req, res) => {
-    res.render('dashboard', {
-        name: req.user.firstName,
-    })
+router.get('/dashboard', ensureAuth, async (req, res) => {
+    try {
+        const stories = await Story.find({ user: req.user.id }).lean()
+        res.render('dashboard', {
+            name: req.user.firstName,
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 
 module.exports = router
