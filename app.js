@@ -24,6 +24,9 @@ app.engine('.hbs', exphbs({
     extname: '.hbs'}));
 app.set('view engine', '.hbs');
 
+// Routes
+app.use('/', require('./routes/index'))
+
 const PORT = process.env.PORT || 5000
 
 
